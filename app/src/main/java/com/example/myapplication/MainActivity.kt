@@ -3,9 +3,10 @@ package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.example.myapplication.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 
-const val LOG_TAG = "LifeCycle_monitor"
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,33 +18,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        lifecycle.addObserver(MyObserver())
 
-        Log.i(LOG_TAG, "onCreate")
+        binding.fab.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(view: View?) {
+                Snackbar.make(view!!, "Our message", Snackbar.LENGTH_LONG).show()
+            }
+        })
 
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.i(LOG_TAG, "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.i(LOG_TAG, "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.i(LOG_TAG, "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.i(LOG_TAG, "onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i(LOG_TAG, "onDestroy")
     }
 }
